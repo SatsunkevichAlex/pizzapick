@@ -1,4 +1,5 @@
-﻿using PizzaFoxDataService;
+﻿using PapaService;
+using PizzaFoxDataService;
 
 namespace TestConsoleApp
 {
@@ -7,7 +8,10 @@ namespace TestConsoleApp
         static void Main()
         {
             var foxDataService = new PizzaFoxPizzaProvider();
+            var papaDataService = new PapaPizzaProvider();
+
             var foxPizzas = foxDataService.GetFoxPizzas();
+            var papaPizzas = papaDataService.GetPizzas();
         }
     }
 }

@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PapaService\PapaService.csproj" />
     <ProjectReference Include="..\PizzaFoxService\PizzaFoxService.csproj" />
   </ItemGroup>
 

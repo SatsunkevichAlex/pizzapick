@@ -59,7 +59,7 @@ namespace PizzaFoxDataService
             var calories = GetBigPizzaCalories(bigData);
             var diameter = GetBigPizzaDiameter(bigData);
             var mass = GetBigPizzaMass(bigData);
-            var cost = GetBigPizzaCost(bigData);
+            var price = GetBigPizzaPrice(bigData);
 
             var composition = new Composition
             {
@@ -83,7 +83,8 @@ namespace PizzaFoxDataService
                 name,
                 composition,
                 producer,
-                parameters
+                parameters,
+                price
                 );
 
             return bigPizza;
@@ -100,7 +101,7 @@ namespace PizzaFoxDataService
             var calories = GetMediumPizzaCalories(mediumData);
             var diameter = GetMediumPizzaDiameter(mediumData);
             var mass = GetMediumPizzaMass(mediumData);
-            var cost = GetMediumPizzaCost(mediumData);
+            var price = GetMediumPizzaPrice(mediumData);
 
             var composition = new Composition
             {
@@ -124,7 +125,8 @@ namespace PizzaFoxDataService
                 name,
                 composition,
                 producer,
-                parameters
+                parameters,
+                price
                 );
 
             return mediumPizza;
@@ -141,7 +143,7 @@ namespace PizzaFoxDataService
             var calories = GetThinPizzaCalories(thinData);
             var diameter = GetThinPizzaDiameter(thinData);
             var mass = GetThinPizzaMass(thinData);
-            var cost = GetThinPizzaCost(thinData);
+            var price = GetThinPizzaPrice(thinData);
 
             var composition = new Composition
             {
@@ -165,7 +167,8 @@ namespace PizzaFoxDataService
                 name,
                 composition,
                 producer,
-                parameters
+                parameters,
+                price
                 );
 
             return thinPizza;
@@ -212,7 +215,7 @@ namespace PizzaFoxDataService
             return result;
         }
 
-        private double GetThinPizzaCost(IEnumerable<JProperty> pizzaData)
+        private double GetThinPizzaPrice(IEnumerable<JProperty> pizzaData)
         {
             const int denominationValue = 10000;
             string oldPrice = pizzaData.SingleOrDefault(it =>
@@ -246,7 +249,7 @@ namespace PizzaFoxDataService
             return Convert.ToInt32(Math.Round(result, 0));
         }
 
-        private double GetMediumPizzaCost(IEnumerable<JProperty> pizzaData)
+        private double GetMediumPizzaPrice(IEnumerable<JProperty> pizzaData)
         {
             const int denominationValue = 10000;
             string oldPrice = pizzaData.SingleOrDefault(it =>
@@ -280,7 +283,7 @@ namespace PizzaFoxDataService
             return Convert.ToInt32(Math.Round(result, 0));
         }
 
-        private double GetBigPizzaCost(IEnumerable<JProperty> pizzaData)
+        private double GetBigPizzaPrice(IEnumerable<JProperty> pizzaData)
         {
             const int denominationValue = 10000;
             string oldPrice = pizzaData.SingleOrDefault(it =>
