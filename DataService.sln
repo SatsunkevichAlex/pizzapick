@@ -9,9 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaDataService", "PizzaDa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaFoxService", "PizzaFoxService\PizzaFoxService.csproj", "{7BA450F7-15F7-462D-9591-5E2DDE6054A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PapaService", "PapaService\PapaService.csproj", "{76FB5EC5-1FD6-4FFF-B94D-FECFAF686CF2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PapaService", "PapaService\PapaService.csproj", "{76FB5EC5-1FD6-4FFF-B94D-FECFAF686CF2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{B6C457A9-FAE1-48C7-87A6-1251AC72A544}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "UnitTests\UnitTests.csproj", "{B6C457A9-FAE1-48C7-87A6-1251AC72A544}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseHandler", "DatabaseHandler\DatabaseHandler.csproj", "{DCCF8444-DCAE-436A-9F16-351C77506042}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{B6C457A9-FAE1-48C7-87A6-1251AC72A544}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6C457A9-FAE1-48C7-87A6-1251AC72A544}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6C457A9-FAE1-48C7-87A6-1251AC72A544}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCCF8444-DCAE-436A-9F16-351C77506042}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCCF8444-DCAE-436A-9F16-351C77506042}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCCF8444-DCAE-436A-9F16-351C77506042}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCCF8444-DCAE-436A-9F16-351C77506042}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

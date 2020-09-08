@@ -37,12 +37,12 @@ namespace PizzaFoxDataService
 
             if (IsThin(pizzaData))
             {
-                var mediumPizza = CreateMediumPizza(pizzaData);
-                result.Add(mediumPizza);
+                var thinPizza = CreateThinPizza(pizzaData);
+                result.Add(thinPizza);
             }
-            var thinPizza = CreateThinPizza(pizzaData);
+            var mediumPizza = CreateMediumPizza(pizzaData);
             var bigPizza = CreateBigPizza(pizzaData);
-            result.Add(thinPizza);
+            result.Add(mediumPizza);
             result.Add(bigPizza);
 
             return result;
@@ -154,7 +154,7 @@ namespace PizzaFoxDataService
                 Diameter = diameter,
                 IsCheesSide = false,
                 IsHotDogSide = false,
-                IsThin = false,
+                IsThin = true,
                 Mass = mass,
                 SizeName = sizeName
             };
