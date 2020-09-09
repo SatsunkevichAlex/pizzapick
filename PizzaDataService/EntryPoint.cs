@@ -1,17 +1,11 @@
-﻿using PapaService;
-using PizzaFoxDataService;
-
-namespace TestConsoleApp
+﻿namespace PizzaDataService
 {
     class EntryPoint
     {
         static void Main()
         {
-            var foxDataService = new PizzaFoxPizzaProvider();
-            var papaDataService = new PapaPizzaProvider();
-
-            var foxPizzas = foxDataService.GetFoxPizzas();
-            var papaPizzas = papaDataService.GetPizzas();
+            var pizzaUpdater = new PizzaUpdater();
+            pizzaUpdater.RunUpdateProcess();
         }
     }
 }
