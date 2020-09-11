@@ -8,9 +8,9 @@ namespace Common.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }
-        public Params Params { get; set; }
-        public Composition Composition { get; set; }
-        public Producer Producer { get; set; }
+        virtual public Params Params { get; set; }
+        virtual public Composition Composition { get; set; }
+        virtual public Producer Producer { get; set; }
 
         public Pizza()
         { }

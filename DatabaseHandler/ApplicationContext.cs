@@ -20,14 +20,18 @@ namespace DatabaseInserter
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(Config.GetConnectinString());
+            optionsBuilder
+                .UseLazyLoadingProxies()
+                .UseSqlServer(Config.GetConnectinString());
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Composition>().Property(d => d.Content).HasConversion(
-                v => JsonConvert.SerializeObject(v),
-                v => JsonConvert.DeserializeObject<List<string>>(v));
+            modelBuilder
+                .Entity<Composition>()
+                .Property(d => d.Content).HasConversion(
+                    v => JsonConvert.SerializeObject(v),
+                    v => JsonConvert.DeserializeObject<List<string>>(v));
         }
     }
 }

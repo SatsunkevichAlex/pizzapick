@@ -9,6 +9,6 @@ namespace Common.Models
         public string Name { get; set; }
 
         public int PizzaId { get; set; }
-        public Pizza Pizza { get; set; }
+        //public virtual Pizza Pizza { get; set; }
     }
 }
