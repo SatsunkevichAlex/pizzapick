@@ -1,20 +1,26 @@
 {
-    "version": 1,
+    "version": 1,    
     "projects": {
         "purchaseapp": {
             "projectType": "application",
             "root": "",
-            "sourceRoot": "src",
+            "sourceRoot": "src",            
             "architect": {
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
                         "outputPath": "dist/pizapick",
                         "index": "src/index.html",
+                        "assets": [
+                            "src/assets"
+                        ],
                         "main": "src/main.ts",
                         "polyfills": "src/polyfills.ts",
                         "tsConfig": "tsconfig.json",
-                        "aot": true
+                        "aot": true,
+                        "styles": [
+                            "src/styles.css"
+                        ]
                     }
                 },
                 "serve": {

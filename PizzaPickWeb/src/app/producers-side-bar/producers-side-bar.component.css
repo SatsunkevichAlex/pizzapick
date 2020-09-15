@@ -1,0 +1,31 @@
+ul {
+    list-style-type: none;
+    padding: 0;
+    justify-content:center;
+    margin: 0;
+}
+
+ul>li {
+    font-size: large;
+    border-radius: 15px;
+    border: 1px solid lightblue;
+    text-align: center;
+    margin: 10px;
+}
+
+ul>li>a {
+    color: lightblue;    
+    font-style: italic;
+}
+
+ul>li>p {
+    margin: 5px;
+    color: lightblue;    
+    font-size: 20px;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+li>p {
+    font-size: large;
+    margin: 0;
+}
