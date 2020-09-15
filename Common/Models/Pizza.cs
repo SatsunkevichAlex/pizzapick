@@ -8,6 +8,8 @@ namespace Common.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }
+        public string PhotoPath { get; set; }
+
         virtual public Params Params { get; set; }
         virtual public Composition Composition { get; set; }
         virtual public Producer Producer { get; set; }
@@ -20,13 +22,15 @@ namespace Common.Models
             Composition composition,
             Producer producer,
             Params parameters,
-            double price)
+            double price,
+            string photoPath)
         {
             Name = name;
             Composition = composition;
             Producer = producer;
             Params = parameters;
             Price = price;
+            PhotoPath = photoPath;
         }
     }
 }

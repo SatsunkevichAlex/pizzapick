@@ -7,8 +7,8 @@ namespace Common.Models
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
+        public string LogoPath { get; set; }
 
-        public int PizzaId { get; set; }
-        //public virtual Pizza Pizza { get; set; }
+        public int PizzaId { get; set; }        
     }
 }

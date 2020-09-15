@@ -17,6 +17,8 @@ namespace PapaService
                 .ToString().Split(',')
                 .Select(it => it.Trim().ToLower()).ToList();
             var producer = "Папа Джонс";
+            var imageLink = 
+                pizzaData["variations"][0]["image_list_webp"].ToString();
 
             foreach (var variation in pizzaData["variations"])
             {
@@ -38,6 +40,7 @@ namespace PapaService
                         IsHotDogSide = false,
                         IsThin = IsThin(variation)
                     },
+                    PhotoPath = imageLink,
                     Price = GetPrice(variation)
                 };
                 result.Add(pizza);

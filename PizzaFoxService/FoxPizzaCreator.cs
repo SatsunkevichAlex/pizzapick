@@ -60,6 +60,7 @@ namespace PizzaFoxDataService
             var diameter = GetBigPizzaDiameter(bigData);
             var mass = GetBigPizzaMass(bigData);
             var price = GetBigPizzaPrice(bigData);
+            var photoPath = GetPizzaImage(bigData);
 
             var composition = new Composition
             {
@@ -84,7 +85,8 @@ namespace PizzaFoxDataService
                 composition,
                 producer,
                 parameters,
-                price
+                price,
+                photoPath
                 );
 
             return bigPizza;
@@ -102,6 +104,7 @@ namespace PizzaFoxDataService
             var diameter = GetMediumPizzaDiameter(mediumData);
             var mass = GetMediumPizzaMass(mediumData);
             var price = GetMediumPizzaPrice(mediumData);
+            var photoPath = GetPizzaImage(mediumData);
 
             var composition = new Composition
             {
@@ -126,7 +129,8 @@ namespace PizzaFoxDataService
                 composition,
                 producer,
                 parameters,
-                price
+                price,
+                photoPath
                 );
 
             return mediumPizza;
@@ -144,6 +148,7 @@ namespace PizzaFoxDataService
             var diameter = GetThinPizzaDiameter(thinData);
             var mass = GetThinPizzaMass(thinData);
             var price = GetThinPizzaPrice(thinData);
+            var photoPath = GetPizzaImage(thinData);
 
             var composition = new Composition
             {
@@ -168,7 +173,8 @@ namespace PizzaFoxDataService
                 composition,
                 producer,
                 parameters,
-                price
+                price,
+                photoPath
                 );
 
             return thinPizza;
@@ -290,6 +296,12 @@ namespace PizzaFoxDataService
                 it.Name == BIG_PRICE).Value.ToString();
             double newPrice = double.Parse(oldPrice) / denominationValue;
             return newPrice;
+        }
+
+        private string GetPizzaImage(IEnumerable<JProperty> pizzaData)
+        {
+            return pizzaData.SingleOrDefault(it =>
+            it.Name == "photo1").Value.ToString();
         }
     }
 }
