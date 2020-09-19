@@ -1,17 +1,19 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Common.Models
 {
     public class Pizza
     {
         [Key]
+        [JsonIgnore]
         public int Id { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }
-        public string PhotoPath { get; set; }
-
-        virtual public Params Params { get; set; }
-        virtual public Composition Composition { get; set; }
+        public string ImageUrl { get; set; }
+        
+        virtual public Params Params { get; set; }        
+        virtual public Composition Composition { get; set; }        
         virtual public Producer Producer { get; set; }
 
         public Pizza()
@@ -30,7 +32,7 @@ namespace Common.Models
             Producer = producer;
             Params = parameters;
             Price = price;
-            PhotoPath = photoPath;
+            ImageUrl = photoPath;
         }
     }
 }

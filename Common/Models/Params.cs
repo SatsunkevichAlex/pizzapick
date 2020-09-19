@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Common.Models
 {
     public class Params
     {
         [Key]
+        [JsonIgnore]
         public int Id { get; set; }
         public string SizeName { get; set; }
         public int? Mass { get; set; }
@@ -13,7 +15,7 @@ namespace Common.Models
         public bool IsHotDogSide { get; set; }
         public bool IsThin { get; set; }
 
-        public int PizzaId { get; set; }
-        //public virtual Pizza Pizza { get; set; }
+        [JsonIgnore]
+        public int PizzaId { get; set; }        
     }
 }

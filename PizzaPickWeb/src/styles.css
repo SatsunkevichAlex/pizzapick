@@ -30,9 +30,6 @@ body, html {
 
 .wrapper {
     color: #444;
-}
-
-.wrapper {
     display: grid;
     grid-gap: 1em;
     grid-template-areas: "header" "producers-side-bar" "main-content" "pizzas-side-bar" "footer"

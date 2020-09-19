@@ -1,1 +1,30 @@
-Content <br /> More content than we had before so this column is now quite tall.
+<ul class={{selectedProducer}}>    
+    <div *ngIf="pizzasForProducer">
+        <li *ngFor='let pizza of pizzasForProducer'>
+            {{pizza.name}}
+            <img src={{pizza.imageUrl}}>
+            <div>
+                <select>
+                    <option *ngFor="let c of pizza.crusts" [value]="c">
+                        {{c}}
+                    </option>
+                </select>
+            </div>
+            <div>
+                <select>
+                    <option *ngFor="let d of pizza.doughs" [value]="d">
+                        {{d}}
+                    </option>
+                </select>
+            </div>
+            <div>
+                <select>
+                    <option *ngFor="let diam of pizza.diameters" [value]="diam">
+                        {{diam}}
+                    </option>
+                </select>
+            </div>
+            <p>{{pizza.price}}</p>
+        </li>
+    </div>
+</ul>

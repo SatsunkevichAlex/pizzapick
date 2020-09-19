@@ -31,6 +31,9 @@ namespace PizzaFoxDataService
         private const string BIG_WEIGHT = "big_weight";
         private const string BIG_PRICE = "big_price";
 
+        private const string FOX_LOGO_URL = "https://e-vent.by/_files/pic/pzz.png";
+        private const string FOX_LINK = "https://pzz.by/";
+
         internal List<Pizza> CreatePizzaVariations(JToken pizzaData)
         {
             var result = new List<Pizza>();
@@ -53,6 +56,7 @@ namespace PizzaFoxDataService
             var name = pizzaData.Children<JProperty>().SingleOrDefault(it => it.Name == TITLE).Value.ToString();
             var content = GetPizzaContent(pizzaData);
             var sizeName = BIG_SIZE_NAME;
+            var photoPath = GetPizzaImage(pizzaData);
 
             var bigData = pizzaData.Children<JProperty>().Where(it => it.Name.Contains("big"));
 
@@ -60,7 +64,6 @@ namespace PizzaFoxDataService
             var diameter = GetBigPizzaDiameter(bigData);
             var mass = GetBigPizzaMass(bigData);
             var price = GetBigPizzaPrice(bigData);
-            var photoPath = GetPizzaImage(bigData);
 
             var composition = new Composition
             {
@@ -73,11 +76,13 @@ namespace PizzaFoxDataService
                 IsHotDogSide = false,
                 IsThin = false,
                 Mass = mass,
-                SizeName = sizeName
+                SizeName = sizeName               
             };
             var producer = new Producer
             {
-                Name = CONSUMER
+                Name = CONSUMER,
+                LogoUrl = FOX_LOGO_URL,
+                Link = FOX_LINK
             };
 
             Pizza bigPizza = new Pizza(
@@ -97,6 +102,7 @@ namespace PizzaFoxDataService
             var name = pizzaData.Children<JProperty>().SingleOrDefault(it => it.Name == TITLE).Value.ToString();
             var content = GetPizzaContent(pizzaData);
             var sizeName = MEDIUM_SIZE_NAME;
+            var photoPath = GetPizzaImage(pizzaData);
 
             var mediumData = pizzaData.Children<JProperty>().Where(it => it.Name.Contains("medium"));
 
@@ -104,7 +110,6 @@ namespace PizzaFoxDataService
             var diameter = GetMediumPizzaDiameter(mediumData);
             var mass = GetMediumPizzaMass(mediumData);
             var price = GetMediumPizzaPrice(mediumData);
-            var photoPath = GetPizzaImage(mediumData);
 
             var composition = new Composition
             {
@@ -121,7 +126,9 @@ namespace PizzaFoxDataService
             };
             var producer = new Producer
             {
-                Name = CONSUMER
+                Name = CONSUMER,
+                LogoUrl = FOX_LOGO_URL,
+                Link = FOX_LINK
             };
 
             Pizza mediumPizza = new Pizza(
@@ -141,14 +148,14 @@ namespace PizzaFoxDataService
             var name = pizzaData.Children<JProperty>().SingleOrDefault(it => it.Name == TITLE).Value.ToString();
             var content = GetPizzaContent(pizzaData);
             var sizeName = THIN_SIZE_NAME;
+            var photoPath = GetPizzaImage(pizzaData);
 
             var thinData = pizzaData.Children<JProperty>().Where(it => it.Name.Contains("thin"));
 
             var calories = GetThinPizzaCalories(thinData);
             var diameter = GetThinPizzaDiameter(thinData);
             var mass = GetThinPizzaMass(thinData);
-            var price = GetThinPizzaPrice(thinData);
-            var photoPath = GetPizzaImage(thinData);
+            var price = GetThinPizzaPrice(thinData);            
 
             var composition = new Composition
             {
@@ -165,7 +172,9 @@ namespace PizzaFoxDataService
             };
             var producer = new Producer
             {
-                Name = CONSUMER
+                Name = CONSUMER,
+                LogoUrl = FOX_LOGO_URL,
+                Link = FOX_LINK
             };
 
             Pizza thinPizza = new Pizza(
@@ -298,10 +307,12 @@ namespace PizzaFoxDataService
             return newPrice;
         }
 
-        private string GetPizzaImage(IEnumerable<JProperty> pizzaData)
+        private string GetPizzaImage(JToken pizzaData)
         {
-            return pizzaData.SingleOrDefault(it =>
-            it.Name == "photo1").Value.ToString();
+            return pizzaData
+                .Children<JProperty>()
+                .SingleOrDefault(it => 
+                    it.Name == "photo1").Value.ToString();
         }
     }
 }

@@ -22,6 +22,18 @@ namespace PizzaApi
             services.AddControllers();
 
             services.AddTransient<ApplicationContext>();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll",
+                    builder =>
+                    {
+                        builder
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                    });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -31,7 +43,7 @@ namespace PizzaApi
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseCors("AllowAll");
             app.UseRouting();
 
             app.UseAuthorization();

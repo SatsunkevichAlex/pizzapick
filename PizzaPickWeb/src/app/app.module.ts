@@ -6,12 +6,12 @@ import { FooterComponent } from './footer/footer.component';
 import { PizzasSideBarComponent } from './pizzas-side-bar/pizzas-side-bar.component';
 import { ProducersSideBarComponent } from './producers-side-bar/producers-side-bar.component';
 import { MainContentComponent } from './main-content/main-content.component';
-import { ProducerComponent } from './producer/producer.component';
-import { HttpService } from './services/http.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
     imports: [
-        BrowserModule        
+        BrowserModule,
+        HttpClientModule
     ],
     declarations: [
         AppComponent,
@@ -19,8 +19,7 @@ import { HttpService } from './services/http.service';
         ProducersSideBarComponent,
         HeaderComponent,
         FooterComponent,
-        MainContentComponent,
-        ProducerComponent
+        MainContentComponent
     ],
     bootstrap: [AppComponent]
 })

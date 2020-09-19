@@ -1,5 +1,5 @@
 export class Producer{
     name: string;
-    logoPath: string;
+    logoUrl: string;
     link: string;
 }

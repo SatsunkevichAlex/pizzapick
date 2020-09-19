@@ -8,6 +8,9 @@ namespace PapaService
 {
     internal class PapaPizzaCreator
     {
+        private const string PAPA_LOGO_URL = "https://lh3.googleusercontent.com/mGNsoWq-phTFXgQpoGTFCncDSqxEIjOHObBxX9p7iHMhqm_gHy3ohXykmrawUbQRXQ";
+        private const string SITE_LINK = "https://new.papajohns.by/";
+
         internal List<Pizza> CreateVariations(JObject pizzaData)
         {
             var result = new List<Pizza>();
@@ -31,7 +34,9 @@ namespace PapaService
                     Name = title,
                     Producer = new Producer
                     {
-                        Name = producer
+                        Name = producer,
+                        LogoUrl = PAPA_LOGO_URL,
+                        Link = SITE_LINK
                     },
                     Params = new Params
                     {
@@ -40,7 +45,7 @@ namespace PapaService
                         IsHotDogSide = false,
                         IsThin = IsThin(variation)
                     },
-                    PhotoPath = imageLink,
+                    ImageUrl = imageLink,
                     Price = GetPrice(variation)
                 };
                 result.Add(pizza);

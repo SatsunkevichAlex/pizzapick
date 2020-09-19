@@ -1,8 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PapaService;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace UnitTests.PapaService
 {

@@ -30,6 +30,11 @@ namespace PapaService
                 result.AddRange(pizzaVairiations);
             }
 
+            //Delete non default pizza
+            result.RemoveAll(it =>
+                it.Name == "Своя пицца" ||
+                it.Name == "Пицца половинки");
+
             return result;
         }
     }

@@ -1,3 +1,14 @@
-<div class="box pizzas-side-bar">
-    <p>pizzas-side-bar works!</p>
-</div>
+<ul>
+    <li *ngFor='let pizza of pizzas'>
+        <div [ngSwitch]=pizza.producer.name>
+            <ng-template ngSwitchCase="Пицца Лисица">
+                <p>{{pizza.name}}</p>
+                <img src={{pizza.imageUrl}} width="100" height="55">
+            </ng-template>
+            <ng-template ngSwitchCase="Папа Джонс">
+                <p>{{pizza.name}}</p>
+                <img src={{pizza.imageUrl}} width="100" height="100">
+            </ng-template>
+        </div>
+    </li>
+</ul>

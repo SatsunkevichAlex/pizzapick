@@ -1,6 +1,8 @@
 ﻿using DatabaseInserter;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PapaService;
+using PizzaFoxDataService;
+using System.Linq;
 
 namespace UnitTests.DatabaseHandler
 {
@@ -18,10 +20,15 @@ namespace UnitTests.DatabaseHandler
         [TestMethod]
         public void ApplicationContext_TablesCreation_Succeess()
         {
-            //var pizzas = new PizzaFoxPizzaProvider().GetFoxPizzas();
-            var pizzas = new PapaPizzaProvider().GetPizzas();
-            _conext.Pizzas.AddRange(pizzas);
+            var fox = new PizzaFoxPizzaProvider().GetFoxPizzas();
+            var papa = new PapaPizzaProvider().GetPizzas();
+            _conext.Pizzas.AddRange(fox);
+            _conext.Pizzas.AddRange(papa);
             _conext.SaveChanges();
+
+            Assert.IsTrue(
+                fox.Count + papa.Count ==
+                _conext.Pizzas.Count());
         }
     }
 }

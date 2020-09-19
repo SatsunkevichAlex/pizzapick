@@ -20,7 +20,8 @@ namespace PizzaFoxDataService
         {
             var pizzasData = _requestSender
                 .GetPizzasData(PizzaProviders.PizzaFox);
-            var result = new List<Pizza>();
+            var result = new List<Pizza>();           
+
             return pizzasData
                 .Select(it => _pizzaCreator.CreatePizzaVariations(it))
                 .Aggregate(new List<Pizza>(),
