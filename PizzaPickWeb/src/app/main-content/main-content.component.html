@@ -1,30 +1,38 @@
-<ul class={{selectedProducer}}>    
+<ul class={{selectedProducer}}>
+    <div id="loading" *ngIf="shouldDisplayLoading">
+        Загрузка...
+    </div>
     <div *ngIf="pizzasForProducer">
-        <li *ngFor='let pizza of pizzasForProducer'>
-            {{pizza.name}}
-            <img src={{pizza.imageUrl}}>
-            <div>
-                <select>
-                    <option *ngFor="let c of pizza.crusts" [value]="c">
-                        {{c}}
-                    </option>
-                </select>
-            </div>
-            <div>
-                <select>
-                    <option *ngFor="let d of pizza.doughs" [value]="d">
-                        {{d}}
-                    </option>
-                </select>
-            </div>
-            <div>
-                <select>
+        <li *ngFor='let pizza of pizzasForProducer' class={{pizza.name}}>
+            <p id="pizza-name">{{pizza.name}}</p>
+            <img src={{pizza.imageUrl}}><br>
+            <div class='dropdown diameter'>
+                <label>Диаметр</label><br>
+                <select (change)="onDiameterChanges($event)" id="diam-dropdown">
                     <option *ngFor="let diam of pizza.diameters" [value]="diam">
                         {{diam}}
                     </option>
                 </select>
             </div>
-            <p>{{pizza.price}}</p>
+            <div class='dropdown dougn'>
+                <label>Тесто</label><br>
+                <select id="dropdown-dougn">
+                    <option *ngFor="let d of pizza.doughs" [value]="d">
+                        {{d}}
+                    </option>
+                </select>
+            </div>
+            <div class='dropdown crust'>
+                <label>Борт</label><br>
+                <select id="crust-dropdown">
+                    <option *ngFor="let c of pizza.crusts" [value]="c">
+                        {{c}}
+                    </option>
+                </select>
+            </div>
+            <div id="price">
+                <p>Цена: <span id="pizza-price">{{pizza.price}}</span></p>
+            </div>
         </li>
     </div>
 </ul>

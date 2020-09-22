@@ -132,10 +132,55 @@ namespace PizzaApi.Controllers
         {
             var pizzas = _appContext.Pizzas
                 .ToList()
-                .Where(it => it.Producer.Name.Equals(pizza.Producer.Name, StringComparison.OrdinalIgnoreCase) &&
+                .Where(it =>
+                       it.Producer.Name.Equals(pizza.Producer.Name, StringComparison.OrdinalIgnoreCase) &&
                        it.Name.Equals(pizza.Name, StringComparison.OrdinalIgnoreCase));
             int[] diameters = GetDiameters(pizzas);
             return Json(diameters);
+        }
+
+        [HttpPost]
+        [Route("/get-price-for-pizza")]
+        public IActionResult GetPriceForPizza(Pizza pizza)
+        {
+            var price = _appContext.Pizzas
+                .ToList()
+                .Where(it => it.Producer.Name.Equals(pizza.Producer.Name, StringComparison.OrdinalIgnoreCase))
+                .Where(it => it.Name.Equals(pizza.Name, StringComparison.OrdinalIgnoreCase))
+                .Where(it => it.Params.IsCheesSide == pizza.Params.IsCheesSide)
+                .Where(it => it.Params.IsHotDogSide == pizza.Params.IsHotDogSide)
+                .Where(it => it.Params.IsThin == pizza.Params.IsThin)
+                .Where(it => it.Params.Diameter == pizza.Params.Diameter)
+                .Select(it => it.Price);
+
+            return Json(price);
+        }
+
+        [HttpGet]
+        [Route("/get-price-for-config")]
+        public IActionResult GetPriceForConfig(
+            int diameter,
+            string crust,
+            string dougn,
+            string pizzaName,
+            string producerName
+            )
+        {
+            bool isCheese = crust.Equals("Сырный борт", StringComparison.OrdinalIgnoreCase);
+            bool isHotDogSide = crust.Equals("Хот-дог борт", StringComparison.OrdinalIgnoreCase);
+            bool isThin = dougn.Equals("Тонкое", StringComparison.OrdinalIgnoreCase);
+
+            var price = _appContext.Pizzas
+                .ToList()
+                .Where(it => it.Name.Equals(pizzaName, StringComparison.OrdinalIgnoreCase))
+                .Where(it => it.Producer.Name.Equals(producerName, StringComparison.OrdinalIgnoreCase))
+                .Where(it => it.Params.Diameter == diameter)
+                .Where(it => it.Params.IsCheesSide == isCheese)
+                .Where(it => it.Params.IsHotDogSide == isHotDogSide)
+                .Where(it => it.Params.IsThin == isThin)
+                .Select(it => it.Price);
+
+            return Json(price);
         }
 
         private int[] GetDiameters(IEnumerable<Pizza> pizzas)
@@ -166,7 +211,7 @@ namespace PizzaApi.Controllers
                 .Distinct()
                 .ToArray();
             return result;
-        }        
+        }
 
         private string[] GetDoughns(IEnumerable<Pizza> pizzas)
         {

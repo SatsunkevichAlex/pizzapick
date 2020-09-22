@@ -39,24 +39,48 @@ export class HttpService {
             .get<Pizza>(`http://localhost:54720/pizza?name=${name}&price=${price}`);
     }
 
-    async GetDougnTypesForPizza(pizza: Pizza){
+    async getDougnTypesForPizza(pizza: Pizza){
         return await this.http
         .post<string[]>(
             'http://localhost:54720/get-dougns-for-pizza', 
             pizza).toPromise();
     }
     
-    async GetCrustsForPizza(pizza: Pizza){
+    async getCrustsForPizza(pizza: Pizza){
         return await this.http
         .post<string[]>(
             'http://localhost:54720/get-crusts-for-pizza', 
             pizza).toPromise();
     }
 
-    async GetDiametersForPizza(pizza: Pizza) {
+    async getDiametersForPizza(pizza: Pizza){
         return await this.http
         .post<string[]>(
             'http://localhost:54720/get-diameters-for-pizza', 
             pizza).toPromise();
+    }
+
+    async getPriceForPizza(pizza: Pizza) {
+        return await this.http
+        .post<number>(
+            'http://localhost:54720/get-price-for-pizza', 
+            pizza).toPromise();
+    }
+
+    async getPriceForConfiguration(
+        diameterInput: number,
+        crust: string,
+        dougn: string,
+        pizzaName: string,
+        producerName: string
+    ): Promise<number> {
+        return await this.http.get<number>('http://localhost:54720/get-price-for-config',
+        { params: {
+            ['diameter']: diameterInput.toString(),
+            ['crust']: crust,
+            ['dougn']: dougn,
+            ['pizzaName']: pizzaName,
+            ['producerName']: producerName
+        }}).toPromise();        
     }
 }

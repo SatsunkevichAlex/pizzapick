@@ -1,0 +1,54 @@
+li {
+    border: 1px lightblue solid;
+    border-radius: 15px;
+    margin: 10px;
+}
+
+li>p {
+    margin: 5px;
+    text-align: center;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.dropdown {
+    display: inline-block;
+    text-align: center;
+    width: 33%;
+}
+
+#loading {
+    color: lightblue;
+    font-size: xx-large;
+    text-align: center;
+}
+
+p {
+    color: lightblue;
+}
+
+label {
+    color: lightblue;
+}
+
+select {
+    font-family: Arial;
+    border-radius: 10px;
+    background-color: rgb(152, 218, 240);
+    text-align: center;
+    border-color: lightblue;
+}
+
+select>option {
+    border-radius: 10px;
+    text-align: center;
+    font-size: 60;
+}
+
+#price {
+    text-align: center;
+}
