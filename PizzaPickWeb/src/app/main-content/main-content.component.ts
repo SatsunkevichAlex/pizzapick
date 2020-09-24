@@ -31,24 +31,133 @@ export class MainContentComponent implements OnInit {
       });
   }
 
-  async onDiameterChanges(event: Event) {
-    const diamWithoutCheeseCrust = 23;
-    const arrayCrustClassic = ["Классический"];
-    const arrayCrustWithCheese = ["Классический", "Сырный борт"];
+  async onCrustChanges(event: Event): Promise<void> {
     let pizzaElement = this.getPizzaElement(event);
     let producerName = this.selectedProducer.name;
 
+    if (producerName == this.PAPA_JOHNS) {
+      const diamsForCheese = ["30", "35", "40"];
+      const diamsForClassic = ["23", "30", "35", "40"];
+      const dougnForCheese = ["Классическое"];
+      const dougnForClassic = ["Классическое", "Тонкое"];
+      const mixPizzas = ["Супер Микс", "Папа Микс", "Папа Микс Рэнч"];
+      const diamsForMix = ["35", "40"];
+
+      let crustsDropdown = this.getDropdown(pizzaElement, "#crust-dropdown");
+      let dougnDropdown = this.getDropdown(pizzaElement, "#dougn-dropdown");
+      let diamDropdown = this.getDropdown(pizzaElement, "#diam-dropdown");
+
+      let crustValue = this.getDropDownSelectedValue(crustsDropdown);
+      let pizzaName = this.getPizzaName(pizzaElement);
+
+      if (crustValue === "Классический") {
+        if ((mixPizzas.indexOf(pizzaName)) > -1) {
+          this.setDropDownOptions(diamDropdown, diamsForMix);
+          this.setDropDownOptions(dougnDropdown, dougnForClassic);
+        } else {
+          this.setDropDownOptions(dougnDropdown, dougnForClassic);
+          this.setDropDownOptions(diamDropdown, diamsForClassic);
+        }
+      }
+      else {
+        if ((mixPizzas.indexOf(pizzaName)) > -1) {
+          this.setDropDownOptions(diamDropdown, diamsForMix);
+          this.setDropDownOptions(dougnDropdown, dougnForCheese);
+        }
+        else {
+          this.setDropDownOptions(dougnDropdown, dougnForCheese)
+          this.setDropDownOptions(diamDropdown, diamsForCheese);
+        }
+      }
+    }
+
+  }
+
+  async onDougnChange(event: Event): Promise<void> {
+    let pizzaElement = this.getPizzaElement(event);
+    let producerName = this.selectedProducer.name;
+    let pizzaName = this.getPizzaName(pizzaElement);
+
     if (producerName === this.PAPA_JOHNS) {
+      const diamsForThinMix = ["35", "40"];
+      const diamsForThin = ["30", "35", "40"];
+      const diamsForClassic = ["23", "30", "35", "40"];
+      const mixPizzas = ["Супер Микс", "Папа Микс", "Папа Микс Рэнч"];
+
+      let diamDropDown = this.getDropdown(pizzaElement, "#diam-dropdown");
+      let dougnDropDown = this.getDropdown(pizzaElement, "#dougn-dropdown")
+
+      let dougnValue = this.getDropDownSelectedValue(dougnDropDown);
+
+      if ((mixPizzas.indexOf(pizzaName)) > -1) {
+        this.setDropDownOptions(diamDropDown, diamsForThinMix);
+      } else {
+        if (dougnValue == "Тонкое") {
+          this.setDropDownOptions(diamDropDown, diamsForThin);
+        }
+        else {
+          this.setDropDownOptions(diamDropDown, diamsForClassic);
+        }
+        let diameter = this.getPizzaDiameter(pizzaElement);
+        let crust = this.getPizzaCrust(pizzaElement);
+        let dougn = this.getPizzaDougn(pizzaElement);
+
+        let newPrice = await this.http.getPriceForConfiguration(
+          diameter, crust, dougn, pizzaName, producerName);
+
+        this.setPizzaPrice(pizzaElement, newPrice.toString());
+      }
+    } else if (this.selectedProducer.name === "Пицца Лисица") {
+      const diamsForThin = ["36"];
+      const diamsForClassic = ["31", "36"];
+
+      let diamDropDown = this.getDropdown(pizzaElement, "#diam-dropdown");
+      let dougnDropDown = this.getDropdown(pizzaElement, "#dougn-dropdown");
+      let dougnValue = this.getDropDownSelectedValue(dougnDropDown);
+
+      if (dougnValue == "Тонкое") {
+        this.setDropDownOptions(diamDropDown, diamsForThin);
+      }
+      else {
+        this.setDropDownOptions(diamDropDown, diamsForClassic);
+      }
+
+      let diameter = this.getPizzaDiameter(pizzaElement);
+      let crust = this.getPizzaCrust(pizzaElement);
+      let dougn = this.getPizzaDougn(pizzaElement);
+
+      let newPrice = await this.http.getPriceForConfiguration(
+        diameter, crust, dougn, pizzaName, producerName);
+
+      this.setPizzaPrice(pizzaElement, newPrice.toString());
+
+    }
+  }
+
+    async onDiameterChanges(event: Event): Promise < void> {
+      const diamWithoutCheeseCrust = 23;
+      const arrayCrustClassic = ["Классический"];
+      const arrayCrustWithCheese = ["Классический", "Сырный борт"];
+      const arrayDougnForSmall = ["Классическое"];
+      const arrayDougn = ["Классическое", "Тонкое"]
+
+    let pizzaElement = this.getPizzaElement(event);
+      let producerName = this.selectedProducer.name;
+
+      if(producerName === this.PAPA_JOHNS) {
       let crustsDropDown = this.getDropdown(pizzaElement, "#crust-dropdown");
       let diamDropDown = this.getDropdown(pizzaElement, "#diam-dropdown");
+      let dougnDropDown = this.getDropdown(pizzaElement, "#dougn-dropdown")
 
       let diamValue = this.getDropDownSelectedValue(diamDropDown);
 
       if (+diamValue === diamWithoutCheeseCrust) {
         this.setDropDownOptions(crustsDropDown, arrayCrustClassic);
+        this.setDropDownOptions(dougnDropDown, arrayDougnForSmall);
       }
       else {
         this.setDropDownOptions(crustsDropDown, arrayCrustWithCheese);
+        this.setDropDownOptions(dougnDropDown, arrayDougn);
       }
     }
 
@@ -78,12 +187,12 @@ export class MainContentComponent implements OnInit {
   }
 
   private getPizzaDougn(pizzaElement: HTMLElement): string {
-    var dougnSelect = <HTMLSelectElement>pizzaElement.querySelector("#dropdown-dougn");
+    var dougnSelect = <HTMLSelectElement>pizzaElement.querySelector("#dougn-dropdown");
     return dougnSelect.options[dougnSelect.selectedIndex].value;
   }
 
   private getPizzaName(pizzaElement: HTMLElement): string {
-    return pizzaElement.className;    
+    return pizzaElement.querySelector("#pizza-name").textContent;
   }
 
   private setDropDownOptions(dropdown: HTMLSelectElement, values: string[]): void {

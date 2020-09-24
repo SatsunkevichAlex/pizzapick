@@ -3,9 +3,13 @@
         Загрузка...
     </div>
     <div *ngIf="pizzasForProducer">
-        <li *ngFor='let pizza of pizzasForProducer' class={{pizza.name}}>
+        <li *ngFor='let pizza of pizzasForProducer'>
             <p id="pizza-name">{{pizza.name}}</p>
-            <img src={{pizza.imageUrl}}><br>
+            <img src={{pizza.imageUrl}} id='pizza-image'><br>
+            <div class='content'>
+                <span>Состав: </span>
+                <p id='pizza-content'>{{pizza.composition.content | contentToString}}</p>
+            </div>
             <div class='dropdown diameter'>
                 <label>Диаметр</label><br>
                 <select (change)="onDiameterChanges($event)" id="diam-dropdown">
@@ -16,13 +20,13 @@
             </div>
             <div class='dropdown dougn'>
                 <label>Тесто</label><br>
-                <select id="dropdown-dougn">
+                <select id="dougn-dropdown" (change)="onDougnChange($event)">
                     <option *ngFor="let d of pizza.doughs" [value]="d">
                         {{d}}
                     </option>
                 </select>
             </div>
-            <div class='dropdown crust'>
+            <div class='dropdown crust' (change)="onCrustChanges($event)">
                 <label>Борт</label><br>
                 <select id="crust-dropdown">
                     <option *ngFor="let c of pizza.crusts" [value]="c">

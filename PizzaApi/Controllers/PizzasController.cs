@@ -1,6 +1,8 @@
-﻿using Common.Models;
+﻿using Common;
+using Common.Models;
 using DatabaseInserter;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -166,21 +168,31 @@ namespace PizzaApi.Controllers
             string producerName
             )
         {
+            Logger.WrilteLine("diameter " + diameter.ToString());
+            Logger.WrilteLine("crust " + crust);
+            Logger.WrilteLine("dougn " + dougn);
+            Logger.WrilteLine("pizzaName " + pizzaName);
+            Logger.WrilteLine("producerName " + producerName);
+
             bool isCheese = crust.Equals("Сырный борт", StringComparison.OrdinalIgnoreCase);
             bool isHotDogSide = crust.Equals("Хот-дог борт", StringComparison.OrdinalIgnoreCase);
             bool isThin = dougn.Equals("Тонкое", StringComparison.OrdinalIgnoreCase);
 
-            var price = _appContext.Pizzas
+            var pizza = _appContext.Pizzas
                 .ToList()
                 .Where(it => it.Name.Equals(pizzaName, StringComparison.OrdinalIgnoreCase))
                 .Where(it => it.Producer.Name.Equals(producerName, StringComparison.OrdinalIgnoreCase))
                 .Where(it => it.Params.Diameter == diameter)
                 .Where(it => it.Params.IsCheesSide == isCheese)
                 .Where(it => it.Params.IsHotDogSide == isHotDogSide)
-                .Where(it => it.Params.IsThin == isThin)
-                .Select(it => it.Price);
+                .Where(it => it.Params.IsThin == isThin);
+            if (pizza.Count() == 0)
+            {
+                return Json("price is not found");
+            }
 
-            return Json(price);
+            Logger.WrilteLine(JsonConvert.SerializeObject(pizza));
+            return Json(pizza.First().Price);
         }
 
         private int[] GetDiameters(IEnumerable<Pizza> pizzas)

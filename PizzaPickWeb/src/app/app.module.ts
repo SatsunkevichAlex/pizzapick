@@ -7,6 +7,7 @@ import { PizzasSideBarComponent } from './pizzas-side-bar/pizzas-side-bar.compon
 import { ProducersSideBarComponent } from './producers-side-bar/producers-side-bar.component';
 import { MainContentComponent } from './main-content/main-content.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ContentToStringPipe } from './content-to-string.pipe';
 
 @NgModule({
     imports: [
@@ -19,7 +20,8 @@ import { HttpClientModule } from '@angular/common/http';
         ProducersSideBarComponent,
         HeaderComponent,
         FooterComponent,
-        MainContentComponent
+        MainContentComponent,
+        ContentToStringPipe
     ],
     bootstrap: [AppComponent]
 })

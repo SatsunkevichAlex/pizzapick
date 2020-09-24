@@ -52,3 +52,19 @@ select>option {
 #price {
     text-align: center;
 }
+
+#pizza-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+#pizza-content {
+    display: inline;
+}
+
+.content {
+    color: lightblue;
+    text-align: center;
+}
