@@ -1,7 +1,14 @@
+* {
+    box-sizing: border-box;
+}
+
 li {
     border: 1px lightblue solid;
-    border-radius: 15px;
-    margin: 10px;
+    border-radius: 7px;
+    margin: 5px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding: 3px;
 }
 
 li>p {
@@ -67,4 +74,55 @@ select>option {
 .content {
     color: lightblue;
     text-align: center;
+}
+
+.pizza-main-title {
+    text-align: center;
+}
+
+li>* {
+    text-align: center;
+}
+
+.logo-block {
+    display: inline-block;
+    position: relative;
+    top: 17px;
+}
+
+.producer-name {
+    display: inline;
+}
+
+.producer-block {
+    text-align: center;
+}
+
+.option {
+    display: inline;
+}
+
+.option-title {
+    margin-bottom: 5px;
+}
+
+#piz-img {
+    margin-top: 2px;
+}
+
+.left, .right {
+    flex-grow: 1;
+    width: 50%;
+}
+
+.list-item {
+    display: flex;
+}
+
+#content{
+    margin-top: 0;
+}
+
+#pizza-name {
+    margin-bottom: 0;
 }

@@ -195,6 +195,123 @@ namespace PizzaApi.Controllers
             return Json(pizza.First().Price);
         }
 
+        [HttpGet]
+        [Route("/get-producers-by-pizzaName")]
+        public IActionResult GetProducerForPizza(string pizzaName)
+        {
+            var result = _appContext.Pizzas
+                .ToList()
+                .Where(it => it.Name.Equals(
+                        pizzaName, StringComparison.OrdinalIgnoreCase)
+                    )
+                .Select(it => it.Producer)
+                .GroupBy(p => p.Name)
+                .Select(g => g.First());
+            return Json(result);
+        }
+
+        [HttpGet]
+        [Route("/get-options-for-pizza-by-producer")]
+        public IActionResult GetOptionsForPizzaByProducer(
+            string pizzaName,
+            string producerName
+        )
+        {
+            var pizzas = _appContext.Pizzas
+                .ToList()
+                .Where(it => it.Producer.Name.Equals(
+                        producerName, StringComparison.OrdinalIgnoreCase
+                    ))
+                .Where(it => it.Name.Equals(
+                        pizzaName, StringComparison.OrdinalIgnoreCase
+                    ));
+
+            List<string> resultOptions = new List<string>();
+
+            foreach (var pizza in pizzas)
+            {
+                if (pizza.Params.IsCheesSide)
+                {
+                    resultOptions.Add("Сырный борт");
+                }
+                if (pizza.Params.IsHotDogSide)
+                {
+                    resultOptions.Add("Хот-дог борт");
+                }
+                if (pizza.Params.IsThin)
+                {
+                    resultOptions.Add("Тонкое тесто");
+                }
+            }
+
+            return Json(resultOptions.Distinct());
+        }
+
+        [HttpGet]
+        [Route("/get-prices-for-pizza-by-producer")]
+        public IActionResult GetPricesForPizzaByProducer(
+            string pizzaName,
+            string producerName
+        )
+        {
+            var result = _appContext.Pizzas
+               .ToList()
+               .Where(it => it.Producer.Name.Equals(
+                       producerName, StringComparison.OrdinalIgnoreCase
+                   ))
+               .Where(it => it.Name.Equals(
+                       pizzaName, StringComparison.OrdinalIgnoreCase
+                   ))
+               .Select(it => it.Price)
+               .Distinct()
+               .OrderByDescending(it => it);
+
+            return Json(result);
+        }
+
+        [HttpGet]
+        [Route("/get-diameters-for-pizza-by-producer")]
+        public IActionResult GetDiametersForPizzaByProducer(
+            string pizzaName,
+            string producerName
+        )
+        {
+            var result = _appContext.Pizzas
+               .ToList()
+               .Where(it => it.Producer.Name.Equals(
+                       producerName, StringComparison.OrdinalIgnoreCase
+                   ))
+               .Where(it => it.Name.Equals(
+                       pizzaName, StringComparison.OrdinalIgnoreCase
+                   ))
+               .Select(it => it.Params.Diameter)
+               .Distinct()
+               .OrderByDescending(it => it);
+
+            return Json(result);
+        }
+
+        [HttpGet]
+        [Route("/get-imgage-url-for-pizza-by-producer")]
+        public IActionResult GetImgUrlForPizaByProducer(
+            string pizzaName,
+            string producerName
+        )
+        {
+            var result = _appContext.Pizzas
+               .ToList()
+               .Where(it => it.Producer.Name.Equals(
+                       producerName, StringComparison.OrdinalIgnoreCase
+                   ))
+               .Where(it => it.Name.Equals(
+                       pizzaName, StringComparison.OrdinalIgnoreCase
+                   ))
+               .Select(it => it.ImageUrl)
+               .First();               
+
+            return Json(result);
+        }
+
         private int[] GetDiameters(IEnumerable<Pizza> pizzas)
         {
             return pizzas

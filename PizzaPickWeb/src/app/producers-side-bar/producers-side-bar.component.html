@@ -1,3 +1,4 @@
+<p id='producers'>Доступные пиццерии</p>
 <ul>
     <li class='listitem' id={{producer.name}} *ngFor='let producer of producers' (click)="producerSelected($event.target)">
         <p>{{producer.name}}</p>

@@ -87,4 +87,53 @@ export class HttpService {
                 }
             }).toPromise();
     }
+
+    async getProducersByPizzaName(pizza: Pizza): Promise<Producer[]> {
+        return await this.http.get<Producer[]>
+            (`${this.host}/get-producers-by-pizzaName`, { params: { ['pizzaName']: pizza.name } })
+            .toPromise();
+    }
+
+    async getOptionsForPizzaByProducer(pizza: Pizza, producer: Producer): Promise<string[]> {
+        return await this.http.get<string[]>
+            (`${this.host}/get-options-for-pizza-by-producer`, {
+                params: {
+                    ['pizzaName']: pizza.name,
+                    ['producerName']: producer.name
+                }
+            })
+            .toPromise();
+    }
+
+    async getPricesForPizzaByProducer(pizza: Pizza, producer: Producer): Promise<number[]> {
+        return await this.http.get<number[]>
+            (`${this.host}/get-prices-for-pizza-by-producer`, {
+                params: {
+                    ['pizzaName']: pizza.name,
+                    ['producerName']: producer.name
+                }
+            })
+            .toPromise();
+    }
+
+    async getDiametersForPizzaByProducer(pizza: Pizza, producer: Producer): Promise<number[]> {
+        return await this.http.get<number[]>
+            (`${this.host}/get-diameters-for-pizza-by-producer`, {
+                params: {
+                    ['pizzaName']: pizza.name,
+                    ['producerName']: producer.name
+                }
+            })
+            .toPromise();
+    }
+
+    async getImgUrlForPizzaByProducer(pizza: Pizza, producerName: string): Promise<string> {
+        return await this.http.get<string>
+            (`${this.host}/get-imgage-url-for-pizza-by-producer`, {
+                params: {
+                    ['pizzaName']: pizza.name,
+                    ['producerName']: producerName
+                }
+            }).toPromise();
+    }
 }

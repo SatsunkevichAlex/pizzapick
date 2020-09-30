@@ -1,6 +1,7 @@
 <ul>
+    <p id="pizzas">Доступные пиццы</p>
     <li *ngFor='let pizza of pizzas'>
-        <div [ngSwitch]=pizza.producer.name>
+        <div [ngSwitch]=pizza.producer.name (click)="onClick(pizza)">
             <ng-template ngSwitchCase="Пицца Лисица">
                 <p>{{pizza.name}}</p>
                 <img src={{pizza.imageUrl}} width="100" height="55">

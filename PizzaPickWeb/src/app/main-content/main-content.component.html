@@ -1,42 +1,104 @@
-<ul class={{selectedProducer}}>
-    <div id="loading" *ngIf="shouldDisplayLoading">
-        Загрузка...
-    </div>
-    <div *ngIf="pizzasForProducer">
-        <li *ngFor='let pizza of pizzasForProducer'>
-            <p id="pizza-name">{{pizza.name}}</p>
-            <img src={{pizza.imageUrl}} id='pizza-image'><br>
-            <div class='content'>
-                <span>Состав: </span>
-                <p id='pizza-content'>{{pizza.composition.content | contentToString}}</p>
+<div [ngSwitch]="shouldDisplayInfoFor">
+    <ng-template ngSwitchCase="producer">
+        <ul class={{selectedProducer}}>
+            <div id="loading" *ngIf="shouldDisplayLoading">
+                Загрузка...
             </div>
-            <div class='dropdown diameter'>
-                <label>Диаметр</label><br>
-                <select (change)="onDiameterChanges($event)" id="diam-dropdown">
-                    <option *ngFor="let diam of pizza.diameters" [value]="diam">
-                        {{diam}}
-                    </option>
-                </select>
+            <div *ngIf="pizzasForProducer">
+                <li *ngFor='let pizza of pizzasForProducer'>
+                    <p id="pizza-name">{{pizza.name}}</p>
+                    <img src={{pizza.imageUrl}} id='pizza-image'><br>
+                    <div class='content'>
+                        <span>Состав: </span>
+                        <p id='pizza-content'>{{pizza.composition.content | contentToString}}</p>
+                    </div>
+                    <div class='dropdown diameter'>
+                        <label>Диаметр</label><br>
+                        <select (change)="onDropDownChange($event)" id="diam-dropdown">
+                            <option *ngFor="let diam of pizza.diameters" [value]="diam">
+                                {{diam}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class='dropdown dougn'>
+                        <label>Тесто</label><br>
+                        <select id="dougn-dropdown" (change)="onDropDownChange($event)">
+                            <option *ngFor="let d of pizza.doughs" [value]="d">
+                                {{d}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class='dropdown crust' (change)="onDropDownChange($event)">
+                        <label>Борт</label><br>
+                        <select id="crust-dropdown">
+                            <option *ngFor="let c of pizza.crusts" [value]="c">
+                                {{c}}
+                            </option>
+                        </select>
+                    </div>
+                    <div id="price">
+                        <p>Цена: <span id="pizza-price">{{pizza.price}}</span></p>
+                    </div>
+                </li>
             </div>
-            <div class='dropdown dougn'>
-                <label>Тесто</label><br>
-                <select id="dougn-dropdown" (change)="onDougnChange($event)">
-                    <option *ngFor="let d of pizza.doughs" [value]="d">
-                        {{d}}
-                    </option>
-                </select>
-            </div>
-            <div class='dropdown crust' (change)="onCrustChanges($event)">
-                <label>Борт</label><br>
-                <select id="crust-dropdown">
-                    <option *ngFor="let c of pizza.crusts" [value]="c">
-                        {{c}}
-                    </option>
-                </select>
-            </div>
-            <div id="price">
-                <p>Цена: <span id="pizza-price">{{pizza.price}}</span></p>
-            </div>
-        </li>
-    </div>
-</ul>
+        </ul>
+    </ng-template>
+    <ng-template ngSwitchCase="pizza">
+        <p class='pizza-main-title'>Выбранная пицца доступна в слудющих пиццериях:</p>
+        <div *ngIf='selectedPizza'>
+            <ul>
+                <li class='list-item' *ngFor="let producer of producersForPizza">
+                    <!-- <div id="columns-block"> -->
+                    <div class='left'>
+                        <div class='producer-block'>
+                            <p class='producer-name'>{{producer.name}}</p>
+                            <img class='logo-block' src={{producer.logoUrl}} width="50" height="50">
+                        </div>
+                        <p id='pizza-name'>
+                            {{selectedPizza.name}}
+                        </p>
+                        <div *ngIf="producer.name === 'Пицца Лисица'">
+                            <img id='piz-img' [src]="foxImgSrc" width="200" height="110">
+                        </div>
+                        <div *ngIf="producer.name === 'Папа Джонс'">
+                            <img id='piz-img' [src]="papaImgSrc" width="200" height="200">
+                        </div>
+                        <div>
+                            <p class='option-title'>Состав:</p>
+                            <p id="content">{{selectedPizza.composition.content | contentToString}}</p>
+                        </div>
+                    </div>
+                    <div class='right'>
+                        <ng-template [ngIf]="producer.options.length !== 0">
+                            <div class="options">
+                                <p class='option-title'>Доступные опции:</p>
+                                <ul>
+                                    <li class='option' *ngFor="let option of producer.options">
+                                        {{option}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </ng-template>
+                        <div class="diameters">
+                            <p class='option-title'>Диаметры:</p>
+                            <ul>
+                                <li class='option' *ngFor="let diam of producer.diameters">
+                                    {{diam}}
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="prices">
+                            <p class='option-title'>Цены:</p>
+                            <ul>
+                                <li class='option' *ngFor="let price of producer.prices">
+                                    {{price}}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- </div> -->
+                </li>
+            </ul>
+        </div>
+    </ng-template>
+</div>
